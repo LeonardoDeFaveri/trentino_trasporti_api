@@ -15,13 +15,11 @@ const String xRequestWith = "it.tndigit.mit";
 
 class TrentinoTrasportiApiClient {
   final http.Client client;
-  final Uri baseUri;
   final Map<String, String> headers;
   final Duration timeout = const Duration(seconds: 30);
 
   TrentinoTrasportiApiClient()
       : client = http.Client(),
-        baseUri = Uri.https(baseUrl, '/gtlservice'),
         headers = {
           'Authorization':
               '$authType ${base64.encode(utf8.encode('$username:$password'))}',
