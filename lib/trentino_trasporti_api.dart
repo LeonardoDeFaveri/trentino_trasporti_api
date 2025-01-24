@@ -3,6 +3,7 @@ library trentino_trasporti_api;
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
+import 'package:latlong2/latlong.dart';
 import 'dart:convert' show utf8, base64, json;
 
 import 'package:trentino_trasporti_api/model/model.dart';
@@ -114,6 +115,21 @@ class TrentinoTrasportiApiClient {
     if (response.statusCode == 200) {
       var tripJson = json.decode(response.body) as Map<String, dynamic>;
       return ApiOk(Trip.fromJson(tripJson));
+    }
+    return ApiErr(response.statusCode, response.body);
+  }
+
+  Future<ApiResult<DirectionInfo>> getDirectionInfo(LatLng from, LatLng to,
+      {String? lang}) async {
+    var uri = Uri.https(baseUrl, '/gtlservice/direction', {
+      'from': '${from.latitude},${from.longitude}',
+      'to': '${to.latitude},${to.longitude}',
+      'lang': lang ?? 'it'
+    });
+    var response = await _sendRequest(uri);
+    if (response.statusCode == 200) {
+      var directionJson = json.decode(response.body) as Map<String, dynamic>;
+      return ApiOk(DirectionInfo.fromJson(directionJson, from, to));
     }
     return ApiErr(response.statusCode, response.body);
   }
