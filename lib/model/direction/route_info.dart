@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class RouteInfo implements Equatable {
   final String fullName;
-  final String shortName;
+  final String? shortName;
   final Color color;
 
   const RouteInfo({

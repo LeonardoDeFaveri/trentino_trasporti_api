@@ -69,12 +69,12 @@ class Transit extends TravelMode {
       id: int.tryParse(json['arrivalStopId'] ?? ''),
       type: AId.fromId(json['arrivalStopType'] ?? ''),
     );
-    String colorStr = json['line']['color'] ?? '#000000';
-    colorStr = colorStr.substring(1);
+    String backgroundColorStr = json['line']['color'] ?? '#000000';
+    backgroundColorStr = backgroundColorStr.substring(1);
     var route = RouteInfo(
       fullName: json['line']['name'],
       shortName: json['line']['shortName'],
-      color: Color(int.parse(colorStr, radix: 16)),
+      color: Color(int.parse(backgroundColorStr, radix: 16)),
     );
     String? tripId = json['tripId'];
     String headsign = json['headsign'];
