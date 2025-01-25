@@ -119,11 +119,13 @@ class TrentinoTrasportiApiClient {
     return ApiErr(response.statusCode, response.body);
   }
 
-  Future<ApiResult<DirectionInfo>> getDirectionInfo(LatLng from, LatLng to,
+  Future<ApiResult<DirectionInfo>> getDirectionInfo(
+      LatLng from, LatLng to, DateTime refDateTime,
       {String? lang}) async {
     var uri = Uri.https(baseUrl, '/gtlservice/direction', {
       'from': '${from.latitude},${from.longitude}',
       'to': '${to.latitude},${to.longitude}',
+      'refDateTime': refDateTime.toIso8601String(),
       'lang': lang ?? 'it'
     });
     var response = await _sendRequest(uri);
