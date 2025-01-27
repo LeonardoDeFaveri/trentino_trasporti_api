@@ -10,8 +10,8 @@ class Way implements Equatable {
   final LatLng arrivalPointCoords;
   final String arrivalPointName;
   final Bounds bounds;
-  final DateTime departureTime;
-  final DateTime arrivalTime;
+  final DateTime? departureTime;
+  final DateTime? arrivalTime;
   final Duration duration;
 
   /// Distance in meters covered by this way
@@ -52,8 +52,8 @@ class Way implements Equatable {
     Duration duration = Duration(
       seconds: legs['duration']['inSeconds'],
     );
-    DateTime arrivalTime = readDateTime(legs['arrivalTime']);
-    DateTime departureTime = readDateTime(legs['departureTime']);
+    DateTime? arrivalTime = readDateTime(legs['arrivalTime']);
+    DateTime? departureTime = readDateTime(legs['departureTime']);
     String arrivalPointName = legs['endAddress'];
     String departurePointName = legs['startAddress'];
     LatLng arrivalPointCoords = readLatLng(legs['endLocation']);

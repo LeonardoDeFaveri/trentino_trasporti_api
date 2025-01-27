@@ -6,7 +6,11 @@ LatLng readLatLng(Map<String, dynamic> json) {
   return LatLng(lat, lng);
 }
 
-DateTime readDateTime(Map<String, dynamic> json) {
+DateTime? readDateTime(Map<String, dynamic>? json) {
+  if (json == null) {
+    return null;
+  }
+
   int year = json['yearOfEra'];
   int month = json['monthOfYear'];
   int day = json['dayOfMonth'];

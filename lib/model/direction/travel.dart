@@ -54,8 +54,8 @@ class Transit extends TravelMode {
       ];
 
   static Transit fromJson(Map<String, dynamic> json) {
-    DateTime arrivalTime = readDateTime(json['arrivalTime']);
-    DateTime departureTime = readDateTime(json['departureTime']);
+    DateTime arrivalTime = readDateTime(json['arrivalTime'])!;
+    DateTime departureTime = readDateTime(json['departureTime'])!;
     int numberOfStops = json['numStops'];
     var departureStop = StopInfo(
       name: json['departureStop']['name'],
@@ -74,7 +74,7 @@ class Transit extends TravelMode {
     var route = RouteInfo(
       fullName: json['line']['name'],
       shortName: json['line']['shortName'],
-      color: Color(int.parse(backgroundColorStr, radix: 16)),
+      color: Color(int.parse(backgroundColorStr, radix: 16)).withAlpha(255),
     );
     String? tripId = json['tripId'];
     String headsign = json['headsign'];
@@ -82,7 +82,7 @@ class Transit extends TravelMode {
     TransportType mode;
     if (modeString == 'BUS') {
       mode = TransportType.bus;
-    } else if (modeString == 'TRAIN') {
+    } else if (modeString == 'HEAVY_RAIL') {
       mode = TransportType.rail;
     } else {
       mode = TransportType.cableway;
