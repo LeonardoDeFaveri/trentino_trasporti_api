@@ -1,5 +1,3 @@
-library trentino_trasporti_api;
-
 import 'dart:async';
 
 import 'package:http/http.dart' as http;

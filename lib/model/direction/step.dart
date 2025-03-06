@@ -9,6 +9,7 @@ class Step implements Equatable {
   final TravelMode travelMode;
   final int distance;
   final Duration duration;
+  final String polyline;
 
   const Step({
     required this.startLocation,
@@ -16,6 +17,7 @@ class Step implements Equatable {
     required this.travelMode,
     required this.distance,
     required this.duration,
+    required this.polyline,
   });
 
   @override
@@ -46,13 +48,14 @@ class Step implements Equatable {
     } else {
       travelMode = Transit.fromJson(json['transitDetails']);
     }
+    String polyline = json['polyline']['encodedPath'];
 
     return Step(
-      startLocation: startLocation,
-      endLocation: endLocation,
-      travelMode: travelMode,
-      distance: distance,
-      duration: duration,
-    );
+        startLocation: startLocation,
+        endLocation: endLocation,
+        travelMode: travelMode,
+        distance: distance,
+        duration: duration,
+        polyline: polyline);
   }
 }

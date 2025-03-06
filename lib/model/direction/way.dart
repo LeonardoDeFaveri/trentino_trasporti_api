@@ -13,6 +13,7 @@ class Way implements Equatable {
   final DateTime? departureTime;
   final DateTime? arrivalTime;
   final Duration duration;
+  final String polyline;
 
   /// Distance in meters covered by this way
   final int distance;
@@ -29,6 +30,7 @@ class Way implements Equatable {
     required this.duration,
     required this.distance,
     required this.steps,
+    required this.polyline,
   });
 
   @override
@@ -39,7 +41,8 @@ class Way implements Equatable {
         arrivalPointName,
         departureTime,
         arrivalTime,
-        duration
+        duration,
+        polyline,
       ];
 
   @override
@@ -61,6 +64,7 @@ class Way implements Equatable {
     List<Step> steps = (legs['steps'] as List<dynamic>)
         .map((e) => Step.fromJson(e as Map<String, dynamic>))
         .toList();
+    String polyline = json['overviewPolyline']['encodedPath'];
 
     return Way(
       departurePointCoords: departurePointCoords,
@@ -73,6 +77,7 @@ class Way implements Equatable {
       duration: duration,
       distance: distance,
       steps: steps,
+      polyline: polyline,
     );
   }
 }
