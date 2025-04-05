@@ -12,18 +12,21 @@ class Trip implements Equatable {
   @JsonKey(name: 'indiceCorsaInLista')
   final int tripIndex;
   final String tripId;
+  @JsonKey(defaultValue: '')
   final String tripFlag;
-  @JsonKey(name: 'tripHeadsign')
+  @JsonKey(name: 'tripHeadsign', defaultValue: '')
   final String tripHeadSign;
   @JsonKey(name: 'corsaPiuVicinaADataRiferimento')
   final bool closestTripToRefDateTime;
+  @JsonKey(defaultValue: 0.0)
   final double delay;
   @JsonKey(name: 'directionId')
   final Direction direction;
   @JsonKey(name: 'lastEventRecivedAt')
   final DateTime? lastUpdate;
+  @JsonKey(defaultValue: 0)
   final int lastSequenceDetection;
-  @JsonKey(name: 'matricolaBus')
+  @JsonKey(name: 'matricolaBus', defaultValue: 0)
   final int busSerialNumber;
   @JsonKey(name: 'oraArrivoEffettivaAFermataSelezionata')
   final DateTime? effectiveArrivalTimeToSelectedStop;
@@ -34,11 +37,13 @@ class Trip implements Equatable {
   final int lastStopId;
   @JsonKey(name: 'stopNext')
   final int nextStopId;
+  @JsonKey(defaultValue: [])
   final List<StopTime> stopTimes;
-  @JsonKey(name: 'totaleCorseInLista')
+  @JsonKey(name: 'totaleCorseInLista', defaultValue: 0)
   final int totalAmountOfTrips;
   @JsonKey(name: 'type')
   final AreaType areaType;
+  @JsonKey(defaultValue: 0)
   final int wheelchairAccessible;
   // Field ignored for the moment
   //final bool cableway;

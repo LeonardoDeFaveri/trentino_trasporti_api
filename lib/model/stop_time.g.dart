@@ -12,7 +12,7 @@ StopTime _$StopTimeFromJson(Map<String, dynamic> json) => StopTime(
       stopId: (json['stopId'] as num).toInt(),
       stopSequence: (json['stopSequence'] as num).toInt(),
       tripId: json['tripId'] as String,
-      areaType: $enumDecode(_$AreaEnumMap, json['type']),
+      areaType: $enumDecode(_$AreaTypeEnumMap, json['type']),
     );
 
 Map<String, dynamic> _$StopTimeToJson(StopTime instance) => <String, dynamic>{
@@ -21,10 +21,10 @@ Map<String, dynamic> _$StopTimeToJson(StopTime instance) => <String, dynamic>{
       'stopId': instance.stopId,
       'stopSequence': instance.stopSequence,
       'tripId': instance.tripId,
-      'type': _$AreaEnumMap[instance.areaType]!,
+      'type': _$AreaTypeEnumMap[instance.areaType]!,
     };
 
-const _$AreaEnumMap = {
+const _$AreaTypeEnumMap = {
   AreaType.urban: 'U',
   AreaType.extraurban: 'E',
   AreaType.unknown: 'unknown',

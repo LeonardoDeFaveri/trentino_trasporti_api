@@ -17,9 +17,9 @@ Stop _$StopFromJson(Map<String, dynamic> json) => Stop(
       latitude: (json['stopLat'] as num).toDouble(),
       longitude: (json['stopLon'] as num).toDouble(),
       level: (json['stopLevel'] as num).toInt(),
-      street: (json['street'] ?? '') as String,
-      town: (json['town'] ?? '') as String,
-      areaType: $enumDecode(_$AreaEnumMap, json['type']),
+      street: json['street'] as String? ?? '',
+      town: json['town'] as String? ?? '',
+      areaType: $enumDecode(_$AreaTypeEnumMap, json['type']),
       wheelchairBoarding: (json['wheelchairBoarding'] as num).toInt(),
       distance: (json['distance'] as num?)?.toDouble(),
     );
@@ -36,11 +36,11 @@ Map<String, dynamic> _$StopToJson(Stop instance) => <String, dynamic>{
       'stopLevel': instance.level,
       'street': instance.street,
       'town': instance.town,
-      'type': _$AreaEnumMap[instance.areaType]!,
+      'type': _$AreaTypeEnumMap[instance.areaType]!,
       'wheelchairBoarding': instance.wheelchairBoarding,
     };
 
-const _$AreaEnumMap = {
+const _$AreaTypeEnumMap = {
   AreaType.urban: 'U',
   AreaType.extraurban: 'E',
   AreaType.unknown: 'unknown',

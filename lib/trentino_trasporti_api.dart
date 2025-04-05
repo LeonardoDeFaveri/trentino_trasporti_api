@@ -11,11 +11,12 @@ const String authType = "Basic";
 const String username = "mittmobile";
 const String password = "ecGsp.RHB3";
 const String xRequestWith = "it.tndigit.mit";
+const int exceptionCode = 400;
 
 class TrentinoTrasportiApiClient {
   final http.Client client;
   final Map<String, String> headers;
-  final Duration timeout = const Duration(seconds: 30);
+  final Duration timeout = const Duration(seconds: 15);
 
   TrentinoTrasportiApiClient()
       : client = http.Client(),
@@ -32,12 +33,16 @@ class TrentinoTrasportiApiClient {
     var response = await _sendRequest(uri);
 
     if (response.statusCode == 200) {
-      List<Route> routes = List.empty(growable: true);
-      var routesJson = json.decode(response.body) as List<dynamic>;
-      for (Map<String, dynamic> route in routesJson) {
-        routes.add(Route.fromJson(route));
+      try {
+        List<Route> routes = List.empty(growable: true);
+        var routesJson = json.decode(response.body) as List<dynamic>;
+        for (Map<String, dynamic> route in routesJson) {
+          routes.add(Route.fromJson(route));
+        }
+        return ApiOk(routes);
+      } catch (e) {
+        return ApiErr(exceptionCode, e.toString());
       }
-      return ApiOk(routes);
     }
 
     return ApiErr(response.statusCode, response.body);
@@ -48,12 +53,16 @@ class TrentinoTrasportiApiClient {
     var response = await _sendRequest(uri);
 
     if (response.statusCode == 200) {
-      List<Stop> stops = List.empty(growable: true);
-      var stopJson = json.decode(response.body) as List<dynamic>;
-      for (Map<String, dynamic> stop in stopJson) {
-        stops.add(Stop.fromJson(stop));
+      try {
+        List<Stop> stops = List.empty(growable: true);
+        var stopJson = json.decode(response.body) as List<dynamic>;
+        for (Map<String, dynamic> stop in stopJson) {
+          stops.add(Stop.fromJson(stop));
+        }
+        return ApiOk(stops);
+      } catch (e) {
+        return ApiErr(exceptionCode, e.toString());
       }
-      return ApiOk(stops);
     }
 
     return ApiErr(response.statusCode, response.body);
@@ -75,12 +84,16 @@ class TrentinoTrasportiApiClient {
     var response = await _sendRequest(uri);
 
     if (response.statusCode == 200) {
-      List<Trip> trips = List.empty(growable: true);
-      var tripsJson = json.decode(response.body) as List<dynamic>;
-      for (Map<String, dynamic> trip in tripsJson) {
-        trips.add(Trip.fromJson(trip));
+      try {
+        List<Trip> trips = List.empty(growable: true);
+        var tripsJson = json.decode(response.body) as List<dynamic>;
+        for (Map<String, dynamic> trip in tripsJson) {
+          trips.add(Trip.fromJson(trip));
+        }
+        return ApiOk(trips);
+      } catch (e) {
+        return ApiErr(exceptionCode, e.toString());
       }
-      return ApiOk(trips);
     }
     return ApiErr(response.statusCode, response.body);
   }
@@ -96,12 +109,16 @@ class TrentinoTrasportiApiClient {
     var response = await _sendRequest(uri);
 
     if (response.statusCode == 200) {
-      List<Trip> trips = List.empty(growable: true);
-      var tripsJson = json.decode(response.body) as List<dynamic>;
-      for (Map<String, dynamic> trip in tripsJson) {
-        trips.add(Trip.fromJson(trip));
+      try {
+        List<Trip> trips = List.empty(growable: true);
+        var tripsJson = json.decode(response.body) as List<dynamic>;
+        for (Map<String, dynamic> trip in tripsJson) {
+          trips.add(Trip.fromJson(trip));
+        }
+        return ApiOk(trips);
+      } catch (e) {
+        return ApiErr(exceptionCode, e.toString());
       }
-      return ApiOk(trips);
     }
     return ApiErr(response.statusCode, response.body);
   }
@@ -111,8 +128,12 @@ class TrentinoTrasportiApiClient {
     var response = await _sendRequest(uri);
 
     if (response.statusCode == 200) {
-      var tripJson = json.decode(response.body) as Map<String, dynamic>;
-      return ApiOk(Trip.fromJson(tripJson));
+      try {
+        var tripJson = json.decode(response.body) as Map<String, dynamic>;
+        return ApiOk(Trip.fromJson(tripJson));
+      } catch (e) {
+        return ApiErr(exceptionCode, e.toString());
+      }
     }
     return ApiErr(response.statusCode, response.body);
   }
@@ -128,8 +149,12 @@ class TrentinoTrasportiApiClient {
     });
     var response = await _sendRequest(uri);
     if (response.statusCode == 200) {
-      var directionJson = json.decode(response.body) as Map<String, dynamic>;
-      return ApiOk(DirectionInfo.fromJson(directionJson, from, to));
+      try {
+        var directionJson = json.decode(response.body) as Map<String, dynamic>;
+        return ApiOk(DirectionInfo.fromJson(directionJson, from, to)); 
+      } catch (e) {
+        return ApiErr(exceptionCode, e.toString());
+      }
     }
     return ApiErr(response.statusCode, response.body);
   }

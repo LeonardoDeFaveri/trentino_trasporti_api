@@ -11,12 +11,13 @@ Route _$RouteFromJson(Map<String, dynamic> json) => Route(
       id: (json['routeId'] as num).toInt(),
       longName: json['routeLongName'] as String,
       shortName: json['routeShortName'] as String,
-      color: Route._readColor(json['routeColor']),
-      routeType: $enumDecode(_$RouteTypeEnumMap, json['routeType']),
-      areaType: $enumDecode(_$AreaEnumMap, json['type']),
-      news: ((json['news'] ?? List.empty()) as List<dynamic>)
-          .map((e) => News.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      color: Route._readColor(json['routeColor'] as String?),
+      routeType: $enumDecode(_$TransportTypeEnumMap, json['routeType']),
+      areaType: $enumDecode(_$AreaTypeEnumMap, json['type']),
+      news: (json['news'] as List<dynamic>?)
+              ?.map((e) => News.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$RouteToJson(Route instance) => <String, dynamic>{
@@ -26,18 +27,18 @@ Map<String, dynamic> _$RouteToJson(Route instance) => <String, dynamic>{
       'routeId': instance.id,
       'routeLongName': instance.longName,
       'routeShortName': instance.shortName,
-      'routeType': _$RouteTypeEnumMap[instance.routeType]!,
-      'type': _$AreaEnumMap[instance.areaType]!,
+      'routeType': _$TransportTypeEnumMap[instance.routeType]!,
+      'type': _$AreaTypeEnumMap[instance.areaType]!,
     };
 
-const _$RouteTypeEnumMap = {
+const _$TransportTypeEnumMap = {
   TransportType.unknown: 'unknown',
   TransportType.rail: 2,
   TransportType.bus: 3,
   TransportType.cableway: 5,
 };
 
-const _$AreaEnumMap = {
+const _$AreaTypeEnumMap = {
   AreaType.urban: 'U',
   AreaType.extraurban: 'E',
   AreaType.unknown: 'unknown',

@@ -23,7 +23,9 @@ class Stop implements Equatable {
   final double longitude;
   @JsonKey(name: 'stopLevel')
   final int level;
+  @JsonKey(defaultValue: '')
   final String street;
+  @JsonKey(defaultValue: '')
   final String town;
   @JsonKey(name: 'type')
   final AreaType areaType;

@@ -8,23 +8,26 @@ part of 'trip.dart';
 
 Trip _$TripFromJson(Map<String, dynamic> json) => Trip(
       tripIndex: (json['indiceCorsaInLista'] as num).toInt(),
-      tripId: json['tripId'],
-      tripFlag: json['tripFlag'] ?? '',
-      tripHeadSign: json['tripHeadsign'] ?? '',
-      closestTripToRefDateTime: json['corsaPiuVicinaADataRiferimento'] ?? false,
-      delay: json['delay'] ?? 0.0,
+      tripId: json['tripId'] as String,
+      tripFlag: json['tripFlag'] as String? ?? '',
+      tripHeadSign: json['tripHeadsign'] as String? ?? '',
+      closestTripToRefDateTime: json['corsaPiuVicinaADataRiferimento'] as bool,
+      delay: (json['delay'] as num?)?.toDouble() ?? 0.0,
       direction: $enumDecode(_$DirectionEnumMap, json['directionId']),
-      lastSequenceDetection: json['lastSequenceDetection'] ?? 0,
-      busSerialNumber: (json['matricolaBus'] ?? 0 as num).toInt(),
+      lastSequenceDetection:
+          (json['lastSequenceDetection'] as num?)?.toInt() ?? 0,
+      busSerialNumber: (json['matricolaBus'] as num?)?.toInt() ?? 0,
       routeId: (json['routeId'] as num).toInt(),
       lastStopId: (json['stopLast'] as num).toInt(),
       nextStopId: (json['stopNext'] as num).toInt(),
-      stopTimes: ((json['stopTimes'] ?? []) as List<dynamic>)
-          .map((e) => StopTime.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      totalAmountOfTrips: json['totaleCorseInLista'] ?? 0,
-      areaType: $enumDecode(_$AreaEnumMap, json['type']),
-      wheelchairAccessible: json['wheelchairAccessible'] ?? 0,
+      stopTimes: (json['stopTimes'] as List<dynamic>?)
+              ?.map((e) => StopTime.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      totalAmountOfTrips: (json['totaleCorseInLista'] as num?)?.toInt() ?? 0,
+      areaType: $enumDecode(_$AreaTypeEnumMap, json['type']),
+      wheelchairAccessible:
+          (json['wheelchairAccessible'] as num?)?.toInt() ?? 0,
       lastUpdate: json['lastEventRecivedAt'] == null
           ? null
           : DateTime.parse(json['lastEventRecivedAt'] as String),
@@ -44,7 +47,7 @@ Map<String, dynamic> _$TripToJson(Trip instance) => <String, dynamic>{
       'indiceCorsaInLista': instance.tripIndex,
       'tripId': instance.tripId,
       'tripFlag': instance.tripFlag,
-      'tripHeadSign': instance.tripHeadSign,
+      'tripHeadsign': instance.tripHeadSign,
       'corsaPiuVicinaADataRiferimento': instance.closestTripToRefDateTime,
       'delay': instance.delay,
       'directionId': _$DirectionEnumMap[instance.direction]!,
@@ -60,7 +63,7 @@ Map<String, dynamic> _$TripToJson(Trip instance) => <String, dynamic>{
       'stopNext': instance.nextStopId,
       'stopTimes': instance.stopTimes,
       'totaleCorseInLista': instance.totalAmountOfTrips,
-      'type': _$AreaEnumMap[instance.areaType]!,
+      'type': _$AreaTypeEnumMap[instance.areaType]!,
       'wheelchairAccessible': instance.wheelchairAccessible,
     };
 
@@ -70,7 +73,7 @@ const _$DirectionEnumMap = {
   Direction.backward: 1,
 };
 
-const _$AreaEnumMap = {
+const _$AreaTypeEnumMap = {
   AreaType.urban: 'U',
   AreaType.extraurban: 'E',
   AreaType.unknown: 'unknown',

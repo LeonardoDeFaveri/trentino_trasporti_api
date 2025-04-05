@@ -11,6 +11,7 @@ part 'route.g.dart';
 @JsonSerializable()
 class Route implements Equatable {
   final int areaId;
+  @JsonKey(defaultValue: [])
   final List<News> news;
   @JsonKey(
       name: 'routeColor', fromJson: Route._readColor, toJson: Route._writeColor)

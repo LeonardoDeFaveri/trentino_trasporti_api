@@ -7,18 +7,18 @@ part of 'news.dart';
 // **************************************************************************
 
 News _$NewsFromJson(Map<String, dynamic> json) => News(
-      agencyId: int.parse(json['agencyId']),
+      agencyId: json['agencyId'] as String,
       details: json['details'] as String,
       header: json['header'] as String,
-      routeIds: (json['routeIds'] as List<dynamic>)
+      routeIds: (News.readRouteIds(json, 'RouteIds') as List<dynamic>)
           .map((e) => (e as num).toInt())
           .toList(),
       serviceType: json['serviceType'] as String,
       startDate: News.readDate(json['startDate'] as String),
       endDate: News.readDate(json['endDate'] as String),
       url: Uri.parse(json['url'] as String),
-      stopId: int.tryParse(json['stopId'] ?? '0') ?? 0,
-      idFeed: json['idFeed'] as String?,
+      stopId: News.readStopId(json['stopId'] as Object),
+      idFeed: (json['idFeed'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$NewsToJson(News instance) => <String, dynamic>{
@@ -26,7 +26,7 @@ Map<String, dynamic> _$NewsToJson(News instance) => <String, dynamic>{
       'details': instance.details,
       'header': instance.header,
       'idFeed': instance.idFeed,
-      'routeIds': instance.routeIds,
+      'RouteIds': News.writeRouteIds(instance.routeIds),
       'serviceType': instance.serviceType,
       'startDate': News.writeDate(instance.startDate),
       'endDate': News.writeDate(instance.endDate),
